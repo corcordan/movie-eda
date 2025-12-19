@@ -1,0 +1,2 @@
+#Ignore Jupyter notebooks in language calculations
+*.ipynb -linguist-detectable
