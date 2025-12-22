@@ -1,10 +1,7 @@
-import sys
-sys.path.append('../scripts/')  # To access plots and data scripts
-
 import streamlit as st
 import pandas as pd
-from scripts import data
-from scripts import plots
+import scripts.data as data
+import scripts.plots as plots
 
 # Load the data
 df = data.load_data('./data/cleaned/cleaned_movies.csv')
