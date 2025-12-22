@@ -38,7 +38,7 @@ def plot_years(df: pd.DataFrame):
 
 
 def plot_months(df: pd.DataFrame):
-    months = df.groupby('release_month').size()
+    months = df.groupby('release_month').size().reindex(range(1, 13), fill_value=0)
     months.index = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
                     'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 
@@ -61,7 +61,7 @@ def plot_days(df: pd.DataFrame):
 
     fig, ax = plt.subplots(figsize=(10, 6))
 
-    days.plot(kind='line', ax=ax, color='orchid')
+    days.plot(kind='bar', ax=ax, color='orchid')
 
     ax.set_title('Number of Releases per Day of Month')
     ax.set_xlabel('Day of Month')
@@ -95,15 +95,22 @@ def plot_langs(df: pd.DataFrame):
     return fig
 
 
-def plot_votes(df: pd.DataFrame):
+def plot_votes(df: pd.DataFrame, stats: list[str] = ["Max", "Mean", "Median", "Min"]):
     votes = df.groupby('release_year')['vote_average']
 
     fig, ax = plt.subplots(figsize=(12, 6))
-
-    ax.plot(votes.max().index, votes.max(), label='Max', color='red')
-    ax.plot(votes.mean().index, votes.mean(), label='Mean', color='blue')
-    ax.plot(votes.median().index, votes.median(), label='Median', color='green')
-    ax.plot(votes.min().index, votes.min(), label='Min', color='orange')
+    
+    if "Max" in stats:
+        ax.plot(votes.max().index, votes.max(), label='Max', color='red')
+        
+    if "Mean" in stats:
+        ax.plot(votes.mean().index, votes.mean(), label='Mean', color='blue')
+        
+    if "Median" in stats:
+        ax.plot(votes.median().index, votes.median(), label='Median', color='green')
+    
+    if "Min" in stats:
+        ax.plot(votes.min().index, votes.min(), label='Min', color='orange')
 
     ax.set_title('Vote Averages by Year')
     ax.set_xlabel('Year')
