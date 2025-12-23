@@ -38,7 +38,7 @@ year_range = st.sidebar.slider(
     "Release Year Range",
     df["release_year"].min(),
     df["release_year"].max(),
-    (2020, 2025)
+    (2000, 2025)
 )
 
 # New df based on sidebar slider year range
