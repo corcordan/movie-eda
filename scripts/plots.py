@@ -1,7 +1,9 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 
+# Plotting functions for movie data analysis
 
+# Plot number of releases per decade
 def plot_decades(df: pd.DataFrame):
     years = df.groupby('release_year').size()
     decades = years.groupby((years.index // 10) * 10).sum()
@@ -19,7 +21,7 @@ def plot_decades(df: pd.DataFrame):
 
     return fig
 
-
+# Plot number of releases per year
 def plot_years(df: pd.DataFrame):
     years = df.groupby('release_year').size()
 
@@ -36,7 +38,7 @@ def plot_years(df: pd.DataFrame):
 
     return fig
 
-
+# Plot number of releases per month
 def plot_months(df: pd.DataFrame):
     months = df.groupby('release_month').size().reindex(range(1, 13), fill_value=0)
     months.index = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
@@ -55,7 +57,7 @@ def plot_months(df: pd.DataFrame):
 
     return fig
 
-
+# Plot number of releases per day of month
 def plot_days(df: pd.DataFrame):
     days = df.groupby('release_day').size()
 
@@ -72,7 +74,7 @@ def plot_days(df: pd.DataFrame):
 
     return fig
 
-
+# Plot top 10 original languages by number of movies
 def plot_langs(df: pd.DataFrame):
     langs = (
         df.groupby('original_language')
@@ -94,7 +96,7 @@ def plot_langs(df: pd.DataFrame):
 
     return fig
 
-
+# Plot vote statistics by year
 def plot_votes(df: pd.DataFrame, stats: list[str] = ["Max", "Mean", "Median", "Min"]):
     votes = df.groupby('release_year')['vote_average']
 
@@ -122,7 +124,7 @@ def plot_votes(df: pd.DataFrame, stats: list[str] = ["Max", "Mean", "Median", "M
 
     return fig
 
-
+# Plot vote average vs popularity
 def plot_votes_popularity(df: pd.DataFrame):
     fig, ax = plt.subplots(figsize=(10, 6))
 
